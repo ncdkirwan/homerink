@@ -39,7 +39,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "nb_formula1_run",
+						"name": "nb_formula1_circuits",
 						"type": "DatabricksNotebook",
 						"dependsOn": [],
 						"policy": {
@@ -52,6 +52,258 @@
 						"userProperties": [],
 						"typeProperties": {
 							"notebookPath": "/Users/ncdkirwan@gmail.com/formula1/ingestion/1.ingest_circuts_file",
+							"baseParameters": {
+								"p_data_source": {
+									"value": "@pipeline().parameters.p_data_source",
+									"type": "Expression"
+								},
+								"p_file_date": {
+									"value": "@formatDateTime(pipeline().parameters.p_file_date, 'yyyy-MM-dd')",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_databricks_course",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "nb_formula1_Races",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "nb_formula1_circuits",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.00:30:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/ncdkirwan@gmail.com/formula1/ingestion/2.ingest_races_file",
+							"baseParameters": {
+								"p_data_source": {
+									"value": "@pipeline().parameters.p_data_source",
+									"type": "Expression"
+								},
+								"p_file_date": {
+									"value": "@formatDateTime(pipeline().parameters.p_file_date, 'yyyy-MM-dd')",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_databricks_course",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "nb_formula1_constructors",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "nb_formula1_Races",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.00:30:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/ncdkirwan@gmail.com/formula1/ingestion/3.ingest_constructors_data",
+							"baseParameters": {
+								"p_data_source": {
+									"value": "@pipeline().parameters.p_data_source",
+									"type": "Expression"
+								},
+								"p_file_date": {
+									"value": "@formatDateTime(pipeline().parameters.p_file_date, 'yyyy-MM-dd')",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_databricks_course",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "nb_formula1_Drivers",
+						"type": "DatabricksNotebook",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.00:30:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/ncdkirwan@gmail.com/formula1/ingestion/4.ingest_drivers_data",
+							"baseParameters": {
+								"p_data_source": {
+									"value": "@pipeline().parameters.p_data_source",
+									"type": "Expression"
+								},
+								"p_file_date": {
+									"value": "@formatDateTime(pipeline().parameters.p_file_date, 'yyyy-MM-dd')",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_databricks_course",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "nb_formula1_Qualifying",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "nb_formula1_Drivers",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.00:30:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/ncdkirwan@gmail.com/formula1/ingestion/8.ingest_Qualifying_data",
+							"baseParameters": {
+								"p_data_source": {
+									"value": "@pipeline().parameters.p_data_source",
+									"type": "Expression"
+								},
+								"p_file_date": {
+									"value": "@formatDateTime(pipeline().parameters.p_file_date, 'yyyy-MM-dd')",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_databricks_course",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "nb_formula1_LapTimes",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "nb_formula1_Qualifying",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.00:30:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/ncdkirwan@gmail.com/formula1/ingestion/7.ingest_laptimes_data",
+							"baseParameters": {
+								"p_data_source": {
+									"value": "@pipeline().parameters.p_data_source",
+									"type": "Expression"
+								},
+								"p_file_date": {
+									"value": "@formatDateTime(pipeline().parameters.p_file_date, 'yyyy-MM-dd')",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_databricks_course",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "nb_formula1_pitstop",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "nb_formula1_LapTimes",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.00:30:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/ncdkirwan@gmail.com/formula1/ingestion/6.ingest_pitstops_data",
+							"baseParameters": {
+								"p_data_source": {
+									"value": "@pipeline().parameters.p_data_source",
+									"type": "Expression"
+								},
+								"p_file_date": {
+									"value": "@formatDateTime(pipeline().parameters.p_file_date, 'yyyy-MM-dd')",
+									"type": "Expression"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "ls_databricks_course",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "nb_formula1_Results",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "nb_formula1_constructors",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.00:30:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/ncdkirwan@gmail.com/formula1/ingestion/5.ingest_results_data",
 							"baseParameters": {
 								"p_data_source": {
 									"value": "@pipeline().parameters.p_data_source",
