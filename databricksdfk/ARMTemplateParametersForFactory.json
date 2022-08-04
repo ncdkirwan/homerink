@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "databricksdfk"
+		},
+		"ls_databricks_course_properties_typeProperties_existingClusterId": {
+			"value": "0726-160502-c51r9z2s"
+		}
+	}
+}
