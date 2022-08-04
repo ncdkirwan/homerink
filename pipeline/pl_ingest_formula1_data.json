@@ -89,7 +89,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/ncdkirwan@gmail.com/formula1/ingestion/1.ingest_constructors_file",
+					"notebookPath": "/Users/ncdkirwan@gmail.com/formula1/ingestion/3.ingest_constructors_data",
 					"baseParameters": {
 						"p_data_source": {
 							"value": "@pipeline().parameters.p_data_source",
