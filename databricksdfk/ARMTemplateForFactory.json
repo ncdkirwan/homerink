@@ -92,14 +92,7 @@
 					{
 						"name": "nb_formula1_constructors",
 						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "nb_formula1_Races",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
+						"dependsOn": [],
 						"policy": {
 							"timeout": "0.00:30:00",
 							"retry": 0,
@@ -196,14 +189,7 @@
 					{
 						"name": "nb_formula1_LapTimes",
 						"type": "DatabricksNotebook",
-						"dependsOn": [
-							{
-								"activity": "nb_formula1_Qualifying",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
+						"dependsOn": [],
 						"policy": {
 							"timeout": "0.00:30:00",
 							"retry": 0,
