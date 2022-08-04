@@ -1,0 +1,73 @@
+{
+	"name": "pl_ingest_formula1_data",
+	"properties": {
+		"activities": [
+			{
+				"name": "nb_formula1_run",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Set Run Date",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/ncdkirwan@gmail.com/formula1/ingestion/1.ingest_circuts_file",
+					"baseParameters": {
+						"p_data_source": {
+							"value": "@pipeline().parameters.p_data_source",
+							"type": "Expression"
+						},
+						"p_file_date": {
+							"value": "@formatDateTime(pipeline().parameters.p_file_date, 'yyyy-MM-dd')",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks_course",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Set Run Date",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "v_file_date",
+					"value": {
+						"value": "@formatDateTime(utcnow(), 'yyyy-MM-dd')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"concurrency": 1,
+		"parameters": {
+			"p_data_source": {
+				"type": "string",
+				"defaultValue": "Azure Data Source"
+			},
+			"p_file_date": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"v_file_date": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
