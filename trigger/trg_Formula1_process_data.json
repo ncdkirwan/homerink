@@ -17,7 +17,7 @@
 			"frequency": "Hour",
 			"interval": 168,
 			"startTime": "2021-03-14T20:00:00Z",
-			"endTime": "2022-08-07T00:00:00Z",
+			"endTime": "2021-04-25T00:00:00Z",
 			"delay": "00:00:00",
 			"maxConcurrency": 1,
 			"retryPolicy": {
